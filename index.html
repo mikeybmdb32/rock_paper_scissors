@@ -2,12 +2,32 @@
 <html>
 <head>
   <title>Page Title</title>
-  <meta charset="UTF-8"/>
+  <link rel='stylesheet' href='style.css'>
+  <meta charset='UTF-8'/>
 </head>
 <body>
-  <button class=rpsButton id='rock'> ROCK </button>
-  <button class=rpsButton id='paper'> PAPER </button>
-  <button class=rpsButton id='scissors'> SCISSORS </button>
-  <script src="Rock-Paper-Scissors.js"></script>
+  <div class=title> ROCK-PAPER-SCISSORS </div>
+  <div class=prompt> MAKE YOUR SELECTION: </div>
+  <div class=rpsButtons>
+    <button class=rpsButton id='rock'> ROCK </button>
+    <button class=rpsButton id='paper'> PAPER </button>
+    <button class=rpsButton id='scissors'> SCISSORS </button>
+  </div>
+  <div class=plays>
+    <div class=play> USER PLAY: </div>
+    <div class=play id=userPlay>  </div>
+    <div class=play> COMPUTER PLAY: </div>
+    <div class=play id=computerPlay>  </div>
+    <div class=play> ROUND WINNER: </div>
+    <div class=play id=roundWinner></div>
+  </div>
+  <div class = scores> 
+    <div> USER SCORE: </div>
+      <div id=userScore> 0 </div>
+    <div> COMPUTER SCORE: </div>
+      <div id=computerScore> 0 </div>
+  <div class=gameWinner id=gameWinner></div>
+  </div>
+  <script src='Rock-Paper-Scissors.js'></script>
 </body>
 </html>

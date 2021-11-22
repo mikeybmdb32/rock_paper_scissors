@@ -10,31 +10,47 @@ const rpsButtons = document.querySelectorAll('.rpsButton');
 rpsButtons.forEach(rpsButton => rpsButton.addEventListener('click', function(clickEvent) {;
     if (['rock', 'paper', 'scissors'].includes(clickEvent.target.id)) {
         roundWinner = getRoundWinner(clickEvent.target.id);
+        if (userScore >= 5 || computerScore >= 5) {
+            resetGameScreen();
+        }
         if (roundWinner == 'user') userScore++;
         if (roundWinner == 'computer') computerScore++;
+        updateScreenScores(userScore, computerScore);
         //first to 5 successful plays wins; scores are reset after winner of game is determined
         if (userScore >= 5 || computerScore >= 5) {
-            displayGameWinner(userScore, computerScore);
-            userScore = 0;
-            computerScore = 0;
+            displayGameWinner();
         }
     }
 }));
 
-//display winner of current round of overall game
-function displayGameWinner(userScore, computerScore) {
-    if (userScore > computerScore) console.log(`User wins!`);
-    if (userScore < computerScore) console.log(`Computer wins!`);
-    else console.log(`It's a tie!`);
-    console.log(`User Score:${userScore}  Computer Score:${computerScore}`);
+function resetGameScreen() {
+    userScore = 0;
+    computerScore = 0;
+    document.getElementById("gameWinner").innerHTML = null;
+    
 }
 
+function updateScreenScores(userScore, computerScore) {
+    document.getElementById("userScore").innerHTML = userScore;
+    document.getElementById("computerScore").innerHTML = computerScore;
+}
+
+
+//display winner of current round of overall game
+function displayGameWinner(userScore, computerScore) {
+    if (userScore > computerScore) document.getElementById("gameWinner").innerHTML = "User Wins!";
+    if (userScore < computerScore) document.getElementById("gameWinner").innerHTML = "Computer Wins!";
+    else document.getElementById("gameWinner").innerHTML = "It's a Tie!";
+}
+
+
+
+//MAKE THIS DISPLAY; TRIED TO MAKE IT ALL SHOW UP AT ONCE, BUT IT DOESN'T SEEM TO WORK
 //display winner of current round of play
-function displayRoundWinner(userPlay, computerPlay, winner) {
-    console.log(`
-    User Choice: ${userPlay}
-    Computer Choice:  ${computerPlay}
-    Round Winner:  ${winner}`);
+function displayRoundWinner(userPlay, computerPlay, roundWinner) {
+    document.getElementById("userPlay").innerHTML = userPlay;
+    document.getElementById("computerPlay").innerHTML = computerPlay;
+    document.getElementById("roundWinner").innerHTML = roundWinner;
 }
 
 //use current system time, in milliseconds, to generate random number 0-999
@@ -54,20 +70,20 @@ function getComputerPlay() {
 //determine winner of individual round of play
 function getRoundWinner(userPlay) {
     let computerPlay = getComputerPlay();
-    let winner;
-    if (userPlay == computerPlay) winner = 'tie'
+    let roundWinner;
+    if (userPlay == computerPlay) roundWinner = 'tie'
     if (userPlay == 'scissors') {
-        if (computerPlay == 'paper') winner = 'user'
-        if (computerPlay == 'rock') winner = 'computer'
+        if (computerPlay == 'paper') roundWinner = 'user'
+        if (computerPlay == 'rock') roundWinner = 'computer'
     }
     if (userPlay == 'paper') {
-        if (computerPlay == 'rock') winner = 'user'
-        if (computerPlay == 'scissors') winner = 'computer'
+        if (computerPlay == 'rock') roundWinner = 'user'
+        if (computerPlay == 'scissors') roundWinner = 'computer'
     }
     if (userPlay == 'rock') {
-        if (computerPlay == 'scissors') winner = 'user'
-        if (computerPlay == 'paper') winner = 'computer'
+        if (computerPlay == 'scissors') roundWinner = 'user'
+        if (computerPlay == 'paper') roundWinner = 'computer'
     }
-    displayRoundWinner(userPlay, computerPlay, winner);
-    return winner;
+    displayRoundWinner(userPlay, computerPlay, roundWinner);
+    return roundWinner;
 }
